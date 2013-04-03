@@ -1,0 +1,40 @@
+#modello di una macchina (esercizio libro cap 6)
+from pyplasm import *
+
+dom2D = PROD([INTERVALS(2*PI)(24), INTERVALS(1)(1)]);
+
+def CirconferenzaPiena(dom):
+    a,r=dom
+    return [r*COS(a),r*SIN(a)]
+
+c = MAP(CirconferenzaPiena)(dom2D);
+cpicc = S([1,2])([0.5, 0.5])(c);
+                   
+puntiMacchina = [[0,0],[7,0],[6,4],[4,4],[3,2],[2,2]];
+c = [[1,6,5,2],[5,2,3,4]];
+macchina = MKPOL([puntiMacchina,c,[]]);
+
+macchinaTraslata = T([2])([0.5])(macchina);
+
+
+ruota1 = T([1])([2])(cpicc);
+ruota2 = T([1])([6])(cpicc);
+ruoteSx = STRUCT([ruota1, ruota2]);
+ruoteSx3D = PROD([ruoteSx, Q(0.5)]);
+ruoteDx3D = STRUCT(NN(2)([ruoteSx3D, T(3)(2-0.5)]))
+
+
+
+
+ruote = STRUCT([ruoteSx3D, ruoteDx3D]);
+
+
+
+macchinaEstrusa = PROD([macchinaTraslata, Q(2)])
+macchinaTotale = STRUCT([ruote, macchinaEstrusa]);
+
+VIEW(macchinaTotale);
+
+
+
+
