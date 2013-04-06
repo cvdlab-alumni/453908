@@ -1,4 +1,4 @@
-//primi due esercizi funzionano 
+//primi due esercizi funzionano. Cinque scale piani e pilastri
 //qui problemi con la funzione per fare l'anello circolare
 //interrotto per motivi di tempo
 
