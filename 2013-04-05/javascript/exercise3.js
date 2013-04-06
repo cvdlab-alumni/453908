@@ -1,3 +1,7 @@
+//primi due esercizi funzionano 
+//qui problemi con la funzione per fare l'anello circolare
+//interrotto per motivi di tempo
+
 
 var radius = 0.25;
 var h = 3;
