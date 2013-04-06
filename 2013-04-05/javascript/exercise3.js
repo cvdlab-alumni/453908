@@ -177,60 +177,6 @@ var floor4 = STRUCT([areaPiccolaTetto,areaGrandeTetto,bordinoDavanti,bordinoLate
 
 
 
-#floor0
-piattaformaFondamentaGrande = GRID([[15],[25.1],[0.6]]);
-floor0 = T([1,2,3])([-0.8,-1.3,-0.6])(piattaformaFondamentaGrande);
-
-#floor1
-pianoTerrazzo = GRID([[2.2],[2.3],[-3,0.2]]);
-pianoTerrazzoT = T([1,2])([0.5,-2.3])(pianoTerrazzo);
-
-pianoGrande = GRID([[-3,10.4],[20.5],[-3,0.2]]);
-
-
-pianoPreScale = GRID([[3],[2.3],[-3,0.2]]);
-pianoDopoScale = GRID([[3],[-9.3,11.2],[-3,0.2]]);
-cordoloAffiancoScale = GRID([[0.5],[-2.3,7],[-3,0.2]]);
-cordoloInterno = GRID([[-2.5,0.5],[-2.3,7],[-3,0.2]]);
-
-
-floor1 = STRUCT([pianoTerrazzoT, pianoGrande, pianoPreScale, pianoDopoScale,cordoloAffiancoScale,cordoloInterno]);
-
-
-#floor2
-perimetroDavanti = GRID([[13.4],[0.5],[-6.2,0.2]]);
-perimetroLaterale = GRID([[0.5],[-0.5,8.8],[-6.2,0.2]]);
-perimetroInterno = GRID([[-2.5,0.5],[-0.5,8.8],[-6.2,0.2]]);
-perimetroLaterale2 = GRID([[-12.9,0.5],[-0.5,10],[-6.2,0.2]]);
-
-#completo
-completoPerimetroLaterale1 = GRID([[-0.5,2],[-8.55, 0.75],[-6.2,0.2]]);
-completoPerimetroLaterale2 = GRID([[3],[-9.3, 0.7],[-6.2,0.2]]);
-
-
-piano2AreaGrande = GRID([[13.4],[-10,10.5],[-6.2,0.2]]); 
-
-floor2 = STRUCT([perimetroDavanti, perimetroLaterale,piano2AreaGrande,perimetroInterno,perimetroLaterale2, completoPerimetroLaterale1,completoPerimetroLaterale2]);
-
-
-#floor3
-
-areaGrandeDavanti = GRID([[13.4],[10.5],[-9.4, 0.2]]);
-areaMediaDestraScale = GRID([[-2.5,10.9],[-10.5, 10],[-9.4, 0.2]]);
-#areaDietroScale
-areaDietroScaleF3 = GRID([[2.5],[-16.3,4.2],[-9.4, 0.2]]);
-cordoloLatoSxScaleF3 = GRID([[0.5],[-10.5, 5.8],[-9.4, 0.2]]);
-
-floor3 = STRUCT([areaGrandeDavanti,areaMediaDestraScale,areaDietroScaleF3,cordoloLatoSxScaleF3]);
-
-
-#floor4
-areaPiccolaTetto = GRID([[2.8],[10],[-12.6,0.2]]);
-areaGrandeTetto = GRID([[13.4],[-10,10.5],[-12.6,0.2]]);
-bordinoDavanti = GRID([[-2.8,10.6],[0.5],[-12.6,0.2]]);
-bordinoLaterale = GRID([[-12.9,0.5],[-0.5,10],[-12.6,0.2]]);
-
-floor4 = STRUCT([areaPiccolaTetto,areaGrandeTetto,bordinoDavanti,bordinoLaterale]);
 
 
 
