@@ -1,7 +1,3 @@
-#FRANCESCO PARIS 453908
-#esercizio 5 dove le scale vengono unite al resto della struttura.
-#nel file exercise5BIS si mostrano le scale all'interno della struttura composta da soli piani e pilastri
-
 from pyplasm import *
 
 GRID = COMP([INSR(PROD),AA(QUOTE)])
@@ -381,31 +377,9 @@ westPiano3 = STRUCT([facciataChiusaWest1P3,facciataChiusaWest2P3]);
 
 west = STRUCT([westPiano0,westPiano1,westPiano2,westPiano3]);
 
-#stairs1
-pedata = 0.5 # pedata 
-alzata = 3.2/14 # alzata  
-p = [[0,0],[pedata,0.2],[pedata,0.2+alzata],[0,0.2+alzata]];
-c = [[1,2,3,4]];
-scalino = MKPOL([p,c,None]);
-scalinoEstruso = PROD([scalino,Q(2)]);
-scalini = STRUCT(NN(14)([scalinoEstruso,T([1,2])([pedata,alzata])]));
-#scambio assi
-scalinir = MAP([S3,S1,S2])(scalini);
-stairs1 = T([1,2,3])([0.5,2.3,-0.2])(scalinir);
 
 
 
-
-#stair2
-stair2 = T([2,3])([-0.75,3.2])(stairs1);
-
-
-#strair3
-stair3 = T([2,3])([7.75,3.2])(stair2);
-
-
-
-
-building = STRUCT([pillars0, pillars1, pillars2,pillars3,floor0, floor1,floor2, floor3, floor4, east, south, west, north, stairs1,stair2,stair3]);
+building = STRUCT([pillars0, pillars1, pillars2,pillars3,floor0, floor1,floor2, floor3, floor4, east, south, west, north]);
 VIEW(building);
 
