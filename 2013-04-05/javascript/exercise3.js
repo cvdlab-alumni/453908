@@ -256,7 +256,7 @@ var north = STRUCT([northPiano0,northPiano1,northPiano2,northPiano3]);
 
 //south
 //piano3
-var muroTerrazzoSouth1P3 = GRID([[2.5,-0.3,10.1],[0.5],[-9.6, 1.5]]);
+var muroTerrazzoSouth1P3 = SIMPLEX_GRID([[2.5,-0.3,10.1],[0.5],[-9.6, 1.5]]);
 
 
 
