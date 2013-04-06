@@ -183,6 +183,7 @@ var floor4 = STRUCT([areaPiccolaTetto,areaGrandeTetto,bordinoDavanti,bordinoLate
 
 
 
+
 function cerchio (alpha, r, R) {
   var domain = DOMAIN([[0,alpha],[r,R]])([36,1]);
   var mapping = function (v) {
