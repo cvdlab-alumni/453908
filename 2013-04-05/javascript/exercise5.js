@@ -1,3 +1,5 @@
+//questo file contiene le scale, inserite in una struttura composta da piani e pareti. Corrisponde all'esercizio 5BIS in Python
+
 
 var radius = 0.25;
 var h = 3;
