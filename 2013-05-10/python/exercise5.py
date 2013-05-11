@@ -2,7 +2,7 @@
 #le dimensioni: larghezza 240
 #ci sono 3 bottoni (1 giallo, 2 rossi piu' piccoli che rappresentano dei pulsanti)
 
-SIMPLEX_GRID = COMP([INSR(PROD),AA(QUOTE)])
+
 
 import sys
 # racing car wheel
@@ -12,6 +12,8 @@ sys.path.append("/Users/francescoparis/Documents/larpy")
 from pyplasm import *
 import scipy
 from scipy import *
+
+SIMPLEX_GRID = COMP([INSR(PROD),AA(QUOTE)])
 
 #---------------------------------------------------------
 def VERTEXTRUDE((V,coords)):
@@ -649,6 +651,9 @@ outsuperficieRaccordoArchiDietroBucoPilota2 = MAP(superficieRaccordoArchiDietroB
 outssuperficieRaccordoArchiDietroBucoPilota2Color = COLOR(RED)(outsuperficieRaccordoArchiDietroBucoPilota2);
 
 
+
+
+
 #ovale sopra la testa del pilota coordinata x = -12.55 ed altezza 10 (devo lasciare spazio per una sbombatura esterna)
 #dimensioni largo 150, alto 200, spessore 0.2
 #contorno interno
@@ -665,10 +670,28 @@ outOvaleAlto3 = MAP(ovaleAlto3)(dom1d);
 ovaleAlto4 = CUBICHERMITE(S1)([[-12.55,0,7.6],[-12.55,0,10],[0,1,0],[0,-1,0]]);
 outOvaleAlto4 = MAP(ovaleAlto4)(dom1d);
 
+
+
+
+supeOvaleInternoSopraPilota = CUBICHERMITE(S2)([ovaleAlto1,ovaleAlto2,[0,0,0],[0,0,0]]);
+outsupeOvaleInternoSopraPilota = MAP(supeOvaleInternoSopraPilota)(dom2d);
+outsupeOvaleInternoSopraPilotaColor = COLOR(BLACK)(outsupeOvaleInternoSopraPilota);
+
+supeOvaleInternoSopraPilota2 = CUBICHERMITE(S2)([ovaleAlto1,ovaleAlto3,[0,0,0],[0,0,0]]);
+outsupeOvaleInternoSopraPilota2 = MAP(supeOvaleInternoSopraPilota2)(dom2d);
+outsupeOvaleInternoSopraPilotaColor2 = COLOR(RED)(outsupeOvaleInternoSopraPilota2);
+
+supeOvaleInternoSopraPilota3 = CUBICHERMITE(S2)([ovaleAlto2,ovaleAlto4,[0,0,0],[0,0,0]]);
+outsupeOvaleInternoSopraPilota3 = MAP(supeOvaleInternoSopraPilota3)(dom2d);
+outsupeOvaleInternoSopraPilotaColor3 = COLOR(RED)(outsupeOvaleInternoSopraPilota3);
+
 cupolaDietroPilota = STRUCT([outArco2PoggiatestaPilota1,outArco2PoggiatestaPilota2, outArco2PoggiatestaPilota3,outArco2PoggiatestaPilota4,
 outOvaleAlto1, outOvaleAlto2,outOvaleAlto3,outOvaleAlto4,
 
-outssuperficieRaccordoArchiDietroBucoPilota1Color,outssuperficieRaccordoArchiDietroBucoPilota2Color
+outssuperficieRaccordoArchiDietroBucoPilota1Color,outssuperficieRaccordoArchiDietroBucoPilota2Color,
+outsupeOvaleInternoSopraPilotaColor,outsupeOvaleInternoSopraPilotaColor2, outsupeOvaleInternoSopraPilotaColor3
+
+
 
   ]);
   
@@ -747,12 +770,32 @@ outbocchettoniLinea7 = MAP(bocchettoniLinea7)(dom1d);
 bocchettoniLinea7Dx = CUBICHERMITE(S1)([[-7.7,7,2],[0,2.3,2],[1,0,0],[1,0,0]]);
 outbocchettoniLinea7Dx = MAP(bocchettoniLinea7Dx)(dom1d);
 
+coloreParteBassaBocchettoniSx = CUBICHERMITE(S2)([bocchettoniLinea6,bocchettoniLinea7,[0,0,0],[0,0,0]]);
+outcoloreParteBassaBocchettoniSx = MAP(coloreParteBassaBocchettoniSx)(dom2d);
+outcoloreParteBassaBocchettoniSxColor = COLOR(BLACK)(outcoloreParteBassaBocchettoniSx);
+
+
+coloreParteBassaBocchettoniDx = CUBICHERMITE(S2)([bocchettoniLinea6Dx,bocchettoniLinea7Dx,[0,0,0],[0,0,0]]);
+outcoloreParteBassaBocchettoniDx = MAP(coloreParteBassaBocchettoniDx)(dom2d);
+outcoloreParteBassaBocchettoniDxColor = COLOR(BLACK)(outcoloreParteBassaBocchettoniDx);
+
+
+coloreFondoMacchina1 = CUBICHERMITE(S2)([bocchettoniLinea7,bocchettoniLinea7Dx,[0,0,0],[0,0,0]]);
+outcoloreFondoMacchina1 = MAP(coloreFondoMacchina1)(dom2d);
+outcoloreFondoMacchina1Color = COLOR(BLACK)(outcoloreFondoMacchina1);
+
+coloreFondoMacchina2 = CUBICHERMITE(S2)([bocchettoniLinea6,bocchettoniLinea6Dx,[0,0,0],[0,0,0]]);
+outcoloreFondoMacchina2 = MAP(coloreFondoMacchina2)(dom2d);
+outcoloreFondoMacchina2Color = COLOR(BLACK)(outcoloreFondoMacchina2);
+
 
 
 bocchettoniBassi = STRUCT([outbocchettoniLinea1,outbocchettoniLinea2,outbocchettoniLinea1Dx,
 outbocchettoniLinea2Dx,outbocchettoniLinea3, outbocchettoniLinea3Dx,outbocchettoniLinea4, outbocchettoniLinea4Dx,
 outbocchettoniLinea5, outbocchettoniLinea5Dx,outbocchettoniLinea6,outbocchettoniLinea6Dx,
-outbocchettoniLinea7,outbocchettoniLinea7Dx
+outbocchettoniLinea7,outbocchettoniLinea7Dx,
+outcoloreParteBassaBocchettoniSxColor,outcoloreParteBassaBocchettoniDxColor,
+outcoloreFondoMacchina1Color,outcoloreFondoMacchina2Color
 
 ]);
 
@@ -907,6 +950,25 @@ outsupTraRaccordiLateraliAlettoneDavantiColor = COLOR(RED)(outsupTraRaccordiLate
 
 
 
+
+raccordoCupolaDietroPilotaFineMacchina = CUBICHERMITE(S1)([[-13.4,-1.5,6],[-24.4,-0.75,3.75],[0,0,0],[0,0,0]]);
+outraccordoCupolaDietroPilotaFineMacchina = MAP(raccordoCupolaDietroPilotaFineMacchina)(dom1d);
+
+raccordoCupolaDietroPilotaFineMacchinaDx = CUBICHERMITE(S1)([[-13.4,1.5,6],[-24.4,0.75,3.75],[0,0,0],[0,0,0]]);
+outraccordoCupolaDietroPilotaFineMacchinaDx = MAP(raccordoCupolaDietroPilotaFineMacchinaDx)(dom1d);
+
+
+lineaInizioStriscia = CUBICHERMITE(S1)([[-13.4,1.5,6],[-13.4,-1.5,6],[0,0,0],[0,0,0]]);
+outlineaInizioStriscia = MAP(lineaInizioStriscia)(dom1d);
+
+lineaInizioStriscia2 = CUBICHERMITE(S1)([[-24.4,0.75,3.75],[-24.4,-0.75,3.75],[0,0,0],[0,0,0]]);
+outlineaInizioStriscia2 = MAP(lineaInizioStriscia2)(dom1d);
+
+
+chiudoStrisciaInFin = CUBICHERMITE(S2)([lineaInizioStriscia,lineaInizioStriscia2,[0,0,0],[0,0,0]]);
+outchiudoStrisciaInFin = MAP(chiudoStrisciaInFin)(dom2d);
+outchiudoStrisciaInFincolor = COLOR(RED)(outchiudoStrisciaInFin)
+
 alettoneDavanti = STRUCT([outalettoneDavanti1,outlato1AlettoneDavantiSx,outlato1AlettoneDavantiDx,
 outlato2AlettoneDavantiSx, outlato2AlettoneDavantiDx,lato3AlettoneDavantiSx,
 lato3AlettoneDavantiDx, lato4AlettoneDavantiSx, lato4AlettoneDavantiDx,outcongiunzioneLatoSxDxAlettone,
@@ -925,7 +987,11 @@ outsupPuntaMacchina4Color,
 outsupPuntaMacchina5Color,
 outsupPuntaMacchina6Color,
 outsupPuntaMacchina7Color,
-outsupPuntaMacchina8Color
+outsupPuntaMacchina8Color,
+
+outraccordoCupolaDietroPilotaFineMacchina,
+outraccordoCupolaDietroPilotaFineMacchinaDx,
+outchiudoStrisciaInFincolor
 
 
   ]);

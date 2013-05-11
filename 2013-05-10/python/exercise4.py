@@ -2,7 +2,7 @@
 #le dimensioni: larghezza 240
 #ci sono 3 bottoni (1 giallo, 2 rossi piu' piccoli che rappresentano dei pulsanti)
 
-SIMPLEX_GRID = COMP([INSR(PROD),AA(QUOTE)])
+
 
 import sys
 # racing car wheel
@@ -13,6 +13,7 @@ from pyplasm import *
 import scipy
 from scipy import *
 
+SIMPLEX_GRID = COMP([INSR(PROD),AA(QUOTE)])
 #---------------------------------------------------------
 def VERTEXTRUDE((V,coords)):
     """
