@@ -1,4 +1,4 @@
-#STERZO
+#es5
 #le dimensioni: larghezza 240
 #ci sono 3 bottoni (1 giallo, 2 rossi piu' piccoli che rappresentano dei pulsanti)
 
