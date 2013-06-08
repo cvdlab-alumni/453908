@@ -253,8 +253,131 @@ albero7T,albero8T, albero9T,albero10T,albero11T, albero12T, albero13T,albero14T,
 albero16T, albero17T, albero18T
 ]);
 
-var terrenoConLago = STRUCT([outSuperficieTerrenoColor,lagoTraslatoColorato, alberi]);
-DRAW(terrenoConLago);
+
+//edifici
+
+//funzione che data l'altezza, la profondita' e l'altezza crea un edificio
+//l'edificio casualmente puo' essere un palazzo o una casa
+//l'edificio avra' una altezza di poco variabile
+var creaEdificio = function(l,p, h){
+	var numeroCasuale = Math.random();
+	var colore = new Array();
+	if(numeroCasuale <= 0.5){ //restituisco una casetta
+		var hcasa = h + ((Math.random())/10);
+		var punti = [[0,0],[l,0],[0,l],[l,l],[l/2,hcasa]];
+		var cells = [[0,1,2],[1,3,2],[2,3,4]];
+		var casa = SIMPLICIAL_COMPLEX(punti)(cells);
+		var casaEstrusa = EXTRUDE([p])(casa);
+		var casaEstrusaRuotata = R([1,2])(PI/2)(casaEstrusa);
+		var casaEstrusaRuotataTraslata = T([1])([p])(casaEstrusaRuotata);
+		var casaEstrusaRuotataTraslataColorata = COLOR(normalizzaColore([237,160,78]))(casaEstrusaRuotataTraslata)
+		return casaEstrusaRuotataTraslataColorata;
+	}
+	if(numeroCasuale > 0.5){ //restituisco un palazzo
+		var dx = l;
+		var dy = p;
+		var dz = h + ((Math.random())/10) + 0.05;
+
+		var palazzo = CUBOID([dx,dy,dz]);
+		var palazzoColorato = COLOR(normalizzaColore([222,154,164]))(palazzo)
+		return palazzoColorato;
+	}
+}//fine funzione creaEdificio
+
+
+
+//estendo la superficie
+var estendo1 = SIMPLEX_GRID([[4],[9]]);
+var estendo1T = T([0])([-4])(estendo1);
+var estendo1TCol = COLOR(normalizzaColore([122,84,59]))(estendo1T);
+
+var estendo2 = SIMPLEX_GRID([[13],[-9,4]]);
+var estendo2T = T([0])([-4])(estendo2);
+var estendo2TCol = COLOR(normalizzaColore([122,84,59]))(estendo2T);
+
+
+
+
+var creaInsediamento1 = function(){
+	//prima fila
+	var edificio1 = creaEdificio(0.3,0.4,0.5);
+	var edificio1T = T([0])([-0.5])(edificio1);
+	
+	var edificio2 = creaEdificio(0.3,0.4,0.5);
+	var edificio2T = T([0])([-1.3])(edificio2);
+	
+	var edificio3 = creaEdificio(0.3,0.4,0.5);
+	var edificio3T = T([0])([-2.1])(edificio3);
+	
+	var edificio4 = creaEdificio(0.3,0.4,0.5);
+	var edificio4T = T([0])([-2.9])(edificio4);
+	
+	//seconda fila
+	var edificio5 = creaEdificio(0.3,0.4,0.5);
+	var edificio5T = T([0,1])([-0.5, 0.9])(edificio5);
+	
+	var edificio6 = creaEdificio(0.3,0.4,0.5);
+	var edificio6T = T([0,1])([-1.3, 0.9])(edificio6);
+	
+	var edificio7 = creaEdificio(0.3,0.4,0.5);
+	var edificio7T = T([0,1])([-2.1,0.9])(edificio7);
+	
+	var edificio8 = creaEdificio(0.3,0.4,0.5);
+	var edificio8T = T([0,1])([-2.9,0.9])(edificio8);
+	
+	//terza fila
+	var edificio9 = creaEdificio(0.3,0.4,0.5);
+	var edificio9T = T([0,1])([-0.5, 1.8])(edificio9);
+	
+	var edificio10 = creaEdificio(0.3,0.4,0.5);
+	var edificio10T = T([0,1])([-1.3, 1.8])(edificio10);
+	
+	var edificio11 = creaEdificio(0.3,0.4,0.5);
+	var edificio11T = T([0,1])([-2.1, 1.8])(edificio11);
+	
+	var edificio12 = creaEdificio(0.3,0.4,0.5);
+	var edificio12T = T([0,1])([-2.9, 1.8])(edificio12);
+	
+	
+	var insediamento = STRUCT([edificio1T,edificio2T,edificio3T,edificio4T,
+	edificio5T, edificio6T, edificio7T,edificio8T,
+	edificio9T, edificio10T, edificio11T, edificio12T ]);
+	
+	
+	return insediamento;
+}
+
+
+var creaInsediamento2 = function(){
+
+	var edificio1 = creaEdificio(0.3,0.4,0.5);
+	var edificio1T = T([0,1])([8.7,9.5])(edificio1);
+	
+	var edificio2 = creaEdificio(0.3,0.4,0.5);
+	var edificio2T = T([0,1])([8.7,10.4])(edificio2);
+	
+	var edificio3 = creaEdificio(0.3,0.4,0.5);
+	var edificio3T = T([0,1])([8.7,11.3])(edificio3);
+	
+	var fila1 = STRUCT([edificio1T,edificio2T, edificio3T]);
+	var fila2 = T([0])([-0.8])(fila1);
+	var fila3 = T([0])([-0.8])(fila2);
+	var fila4 = T([0])([-0.8])(fila3);
+	var fila5 = T([0])([-0.8])(fila4);
+	
+	var insediamento = STRUCT([fila1,fila2,fila3, fila4,fila5]);
+	return insediamento;
+}
+
+
+
+insediamento1 = creaInsediamento1();
+insediamento2 = creaInsediamento2();
+
+var model = STRUCT([outSuperficieTerrenoColor,lagoTraslatoColorato, alberi,estendo1TCol,estendo2TCol,
+insediamento1, insediamento2
+]);
+DRAW(model);
 
 
 

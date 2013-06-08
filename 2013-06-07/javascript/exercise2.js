@@ -164,7 +164,7 @@ var lago = CUBOID([dx,dy,dz]);
 
 //traslo il lago in corrispondenza della depressione (dove nella matrice ci sono i numeri negativi)
 var lagoTraslato = T([0,1,2])([6,3.5,-0.5])(lago);
-var lagoTraslatoColorato = COLOR(normalizzaColore([0,255,178]))(lagoTraslato);
+var lagoTraslatoColorato = COLOR(normalizzaColore([116,184,181]))(lagoTraslato);
 
 var terrenoConLago = STRUCT([outSuperficieTerrenoColor,lagoTraslatoColorato]);
 DRAW(terrenoConLago);
