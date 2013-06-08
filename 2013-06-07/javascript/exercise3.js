@@ -10,8 +10,8 @@ var normalizzaColore = function(rgb){
 
 var domain = INTERVALS(1)(32);
 var domain2D = PROD1x1([INTERVALS(1)(16),INTERVALS(1)(16)]);
-
-//var matrix = [[0,0,0], [5,3,0], [1,4,0]];
+var dominioCirconferenza = DOMAIN([[0,2*PI]])([40]);
+var dominioFoglie = DOMAIN([[0,1],[0,2*PI]])([20,20]);
 
 var matrix =[
 	[0,0,0,0,0,0,0,0,0,0],
@@ -131,53 +131,33 @@ var disegnaCurve = function(){
 
 
 
-var domainCirconferenza = DOMAIN([[0,2*PI]])([36]);
 
-
-
-var circonferenza = function (r) {
-  return function (v) {
-    return [r*COS(v[0]), r*SIN(v[0])];
-  };
-};
-
-//var mapping = circle(3);
-
-//var model = MAP(mapping)(domain);
-
-//DRAW(model);
-
+//funzione che crea un albero dato il raggio del tronco, l'altezza totale dell'albero ed il raggio del cono che rappresenta le foglie
+//la funzione randomicamente modifica l'altezza dell'albero ed il raggio del cono del rappresenta le foglie
 var creaAlbero = function(rAlbero,altezzaAlbero, rCoronaFoglie){
-	//Math.random();
+	
 	//tronco
 	var baseAlbero = DISK([rAlbero])();
-	var altezzaTronco = altezzaAlbero/3 + (Math.random());
+	var altezzaTronco = (altezzaAlbero/2) - (Math.random()/10);
 	var troncoAlbero = EXTRUDE([altezzaTronco])(baseAlbero);
-	
+	var troncoAlberoColor = COLOR(normalizzaColore([99,51,45]))(troncoAlbero);
+		
 	//foglie
+	var altezzaConoFoglie = altezzaAlbero - altezzaTronco;
 	var raggioCoronaFoglieMod = rCoronaFoglie + (Math.random()/10);
 	var baseFoglie = DISK([raggioCoronaFoglieMod])();
 	var baseFoglieTrasl = T([2])([altezzaTronco])(baseFoglie);
-	var circ = circonferenza(raggioCoronaFoglieMod);
-	var conoFoglie = ROTATIONAL_SURFACE(circ);
+	var puntiControllo = [[-raggioCoronaFoglieMod,raggioCoronaFoglieMod,-altezzaConoFoglie],[0,0,0]];
+	var contornoFoglie = BEZIER(S0)(puntiControllo);
+	var cFoglie = ROTATIONAL_SURFACE(contornoFoglie);
+	var superficieFoglie = MAP(cFoglie)(dominioFoglie);
+	var superficieFoglieTrasl = T([2])([altezzaConoFoglie + altezzaTronco])(superficieFoglie);
+	var foglieAlbero = STRUCT([baseFoglieTrasl,superficieFoglieTrasl]);
+	var foglieAlberoColor = COLOR(normalizzaColore([77,156,53]))(foglieAlbero);
 	
-	var foglieAlbero = STRUCT([baseFogleTrasl]);
-	
-	var result = STRUCT([troncoAlbero]);
+	var result = STRUCT([troncoAlberoColor,foglieAlberoColor]);
 	return result;
-}
-
-
-
-//var r=0.1
-//var circle = CIRCLE(r)(32)
-//var cilinder=EXTRUDE([1])(circle)
-//var domain = DOMAIN([[0,1],[0,2*PI]])([20,20]);
-//var profile = BEZIER(S0)([[-0.3,0.3,-0.6],[0,0,0]]);
-//var mapping = ROTATIONAL_SURFACE(profile);
-//var surface = MAP(mapping)(domain);
-//var surface=T([2])([1.3])(surface)
-//var albero=STRUCT([surface,cilinder])
+}//fine funzione creaAlbero
 
 
 
@@ -216,8 +196,13 @@ var lagoTraslatoColorato = COLOR(normalizzaColore([0,255,178]))(lagoTraslato);
 //albero 
 var raggioAlbero = 0.1;
 var altezzaTotaleAlbero = 3
-var raggioCoronaFoglie = 0.3
-var albero = creaAlbero(raggioAlbero,altezzaTotaleAlbero,raggioCoronaFoglie);
+var raggioCoronaFoglie = 0.5
+var albero1 = creaAlbero(raggioAlbero,altezzaTotaleAlbero,raggioCoronaFoglie);
+DRAW(albero1)
+
+var albero2 = creaAlbero(raggioAlbero,altezzaTotaleAlbero,raggioCoronaFoglie);
+var albero2T = T([0])([1])(albero2);
+DRAW(albero2T)
 
 var terrenoConLago = STRUCT([outSuperficieTerrenoColor,lagoTraslatoColorato]);
 DRAW(terrenoConLago);
